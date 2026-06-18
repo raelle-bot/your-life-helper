@@ -1,7 +1,7 @@
 # Redeploy trigger: 2026-06-18
 
 [build]
-  publish = "public"
+  publish = "."
   functions = "netlify/functions"
 
 [functions]
