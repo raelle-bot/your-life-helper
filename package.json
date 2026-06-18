@@ -1,0 +1,8 @@
+{
+  "name": "your-life-helper",
+  "version": "1.0.0",
+  "description": "Family dashboard — The Road to Charlotte",
+  "dependencies": {
+    "@netlify/blobs": "^8.1.0"
+  }
+}

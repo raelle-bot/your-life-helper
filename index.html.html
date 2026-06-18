@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Life Helper</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+
+    :root {
+      --sand: #f2e8d9;
+      --sand-mid: #e8d9c0;
+      --sand-dark: #c9b99a;
+      --clay: #b5835a;
+      --clay-dark: #8a5c35;
+      --gold: #c9913d;
+      --gold-light: #e8b96a;
+      --gold-pale: #f5e6c8;
+      --dusk: #3d2e1e;
+      --dusk-mid: #5c4430;
+      --sky: #d6e8f0;
+      --text: #2e1f0e;
+      --text-mid: #5c4430;
+      --text-muted: #9a8470;
+      --white: #fdfaf6;
+      --red: #c0392b;
+      --red-soft: #f9e8e6;
+      --green: #4a7c59;
+      --green-soft: #e6f2ea;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Century Gothic', 'Century Gothic Paneuropean', CenturyGothic, AppleGothic, 'Nunito', 'Trebuchet MS', sans-serif;
+      background: var(--sand);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--dusk) 0%, var(--dusk-mid) 100%);
+      padding: 28px 32px 22px;
+      border-bottom: 3px solid var(--gold);
+    }
+    header h1 {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--gold-light);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    header p {
+      color: var(--sand-dark);
+      font-size: 13px;
+      margin-top: 4px;
+      letter-spacing: 1px;
+    }
+
+    .container { max-width: 960px; margin: 0 auto; padding: 28px 20px 60px; }
+
+    .road-section {
+      background: var(--white);
+      border: 1.5px solid var(--sand-dark);
+      border-radius: 16px;
+      padding: 24px 28px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 12px rgba(61,46,30,0.07);
+    }
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+    .road-title { font-size: 18px; font-weight: 800; color: var(--dusk); margin-bottom: 18px; }
+    .road-track {
+      position: relative;
+      height: 52px;
+      background: linear-gradient(to right, var(--sand-mid), var(--sky));
+      border-radius: 99px;
+      border: 1.5px solid var(--sand-dark);
+    }
+    .road-fill {
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      background: linear-gradient(to right, var(--gold), var(--gold-light));
+      border-radius: 99px;
+      transition: width 1s ease;
+      min-width: 0;
+    }
+    .road-car {
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 26px;
+      transition: left 1s ease;
+    }
+    .road-labels { display: flex; justify-content: space-between; margin-top: 10px; font-size: 12px; color: var(--text-muted); font-weight: 600; }
+    .road-pct { font-size: 22px; font-weight: 800; color: var(--gold); margin-top: 10px; }
+    .road-sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+    .tabs { display: flex; gap: 6px; margin-bottom: 20px; flex-wrap: wrap; }
+    .tab {
+      background: var(--white);
+      border: 1.5px solid var(--sand-dark);
+      border-radius: 8px;
+      padding: 9px 18px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-family: inherit;
+      letter-spacing: 0.5px;
+      transition: all 0.2s;
+    }
+    .tab:hover { border-color: var(--gold); color: var(--gold); }
+    .tab.active { background: var(--dusk); border-color: var(--dusk); color: var(--gold-light); }
+
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    .card {
+      background: var(--white);
+      border: 1.5px solid var(--sand-dark);
+      border-radius: 14px;
+      padding: 22px 24px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 10px rgba(61,46,30,0.06);
+    }
+    .card-title { font-size: 15px; font-weight: 800; color: var(--dusk); margin-bottom: 14px; }
+
+    .bill-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--sand-mid);
+      gap: 12px;
+    }
+    .bill-row:last-child { border-bottom: none; }
+    .bill-name { font-weight: 700; font-size: 14px; color: var(--dusk); }
+    .bill-note { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+    .bill-amount { font-weight: 800; font-size: 16px; color: var(--clay-dark); text-align: right; }
+    .bill-total { font-size: 11px; color: var(--text-muted); }
+    .badge {
+      display: inline-block;
+      padding: 2px 9px;
+      border-radius: 5px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+    .badge-red { background: var(--red-soft); color: var(--red); }
+    .badge-gold { background: var(--gold-pale); color: var(--clay-dark); }
+    .badge-green { background: var(--green-soft); color: var(--green); }
+
+    .summary-row { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; }
+    .summary-box {
+      flex: 1;
+      min-width: 120px;
+      background: var(--sand);
+      border: 1.5px solid var(--sand-dark);
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+    .summary-box .lbl { font-size: 11px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; }
+    .summary-box .val { font-size: 22px; font-weight: 800; margin-top: 4px; }
+    .val-gold { color: var(--gold); }
+    .val-red { color: var(--red); }
+    .val-muted { color: var(--text-muted); }
+
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--sand-mid);
+      cursor: pointer;
+    }
+    .check-item:last-child { border-bottom: none; }
+    .check-box {
+      width: 20px; height: 20px;
+      border-radius: 5px;
+      border: 2px solid var(--sand-dark);
+      flex-shrink: 0;
+      margin-top: 1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      font-size: 12px;
+      font-weight: 900;
+    }
+    .check-box.done { background: var(--green); border-color: var(--green); color: white; }
+    .check-label { font-size: 14px; color: var(--text); line-height: 1.5; flex: 1; }
+    .check-label.done { text-decoration: line-through; color: var(--text-muted); }
+    .who-tag {
+      font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+      padding: 2px 8px; border-radius: 4px; flex-shrink: 0; margin-top: 2px;
+    }
+    .who-rae { background: var(--gold-pale); color: var(--clay-dark); }
+    .who-boogie { background: var(--sky); color: #4a6980; }
+    .who-both { background: var(--sand-mid); color: var(--dusk-mid); }
+
+    .assignment-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 16px; flex-wrap: wrap; gap: 10px;
+    }
+    .date-label { font-size: 13px; color: var(--text-muted); font-weight: 600; }
+
+    .btn {
+      background: var(--dusk);
+      color: var(--gold-light);
+      border: none;
+      border-radius: 8px;
+      padding: 9px 18px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      letter-spacing: 0.5px;
+      transition: background 0.2s;
+    }
+    .btn:hover { background: var(--clay-dark); }
+    .btn-outline { background: transparent; color: var(--clay-dark); border: 1.5px solid var(--clay); }
+    .btn-outline:hover { background: var(--gold-pale); }
+    .btn-sm { padding: 6px 12px; font-size: 12px; }
+
+    .person-assignments { margin-bottom: 20px; }
+    .person-name {
+      font-size: 13px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;
+      color: var(--clay-dark); margin-bottom: 10px; padding-bottom: 6px;
+      border-bottom: 1.5px solid var(--sand-dark);
+    }
+    .assign-row {
+      display: flex; align-items: center; gap: 10px; padding: 8px 0;
+      border-bottom: 1px solid var(--sand-mid);
+    }
+    .assign-row:last-child { border-bottom: none; }
+    .assign-text {
+      flex: 1; font-size: 14px; color: var(--text);
+      background: transparent; border: none; font-family: inherit; outline: none;
+    }
+    .assign-text:focus { background: var(--sand); border-radius: 6px; padding: 4px 8px; }
+    .assign-done { text-decoration: line-through; color: var(--text-muted); }
+    .assign-check {
+      width: 18px; height: 18px; border-radius: 4px; border: 2px solid var(--sand-dark);
+      flex-shrink: 0; cursor: pointer; display: flex; align-items: center;
+      justify-content: center; transition: all 0.2s; font-size: 11px; font-weight: 900;
+    }
+    .assign-check.done { background: var(--green); border-color: var(--green); color: white; }
+    .remove-btn { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 16px; padding: 0 4px; }
+    .remove-btn:hover { color: var(--red); }
+    .add-row { display: flex; gap: 8px; margin-top: 10px; }
+    .add-input {
+      flex: 1; border: 1.5px solid var(--sand-dark); border-radius: 8px;
+      padding: 8px 12px; font-size: 13px; font-family: inherit;
+      background: var(--sand); color: var(--text); outline: none;
+    }
+    .add-input:focus { border-color: var(--gold); }
+
+    .savings-display { text-align: center; padding: 20px 0 10px; }
+    .savings-amount { font-size: 42px; font-weight: 800; color: var(--gold); }
+    .savings-goal { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+    .savings-bar { background: var(--sand-mid); border-radius: 99px; height: 10px; margin: 14px 0 6px; }
+    .savings-fill {
+      background: linear-gradient(to right, var(--clay), var(--gold-light));
+      border-radius: 99px; height: 10px; transition: width 0.8s ease;
+    }
+
+    .person-card { display: flex; gap: 14px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid var(--sand-mid); }
+    .person-card:last-child { border-bottom: none; }
+    .person-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: var(--gold-pale); border: 1.5px solid var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; font-weight: 800; color: var(--clay-dark); flex-shrink: 0;
+    }
+    .person-info-name { font-weight: 800; font-size: 15px; color: var(--dusk); }
+    .person-info-note { font-size: 13px; color: var(--text-muted); margin-top: 3px; line-height: 1.5; }
+
+    .log-entry { padding: 12px 0; border-bottom: 1px solid var(--sand-mid); font-size: 13px; }
+    .log-entry:last-child { border-bottom: none; }
+    .log-time { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
+    .log-cmd { color: var(--clay-dark); font-weight: 700; }
+
+    .alert { border-radius: 10px; padding: 12px 16px; font-size: 13px; margin-bottom: 16px; font-weight: 600; }
+    .alert-warn { background: var(--gold-pale); border: 1.5px solid var(--gold); color: var(--clay-dark); }
+
+    .last-updated { text-align: center; font-size: 11px; color: var(--text-muted); margin-top: 32px; letter-spacing: 1px; }
+
+    @media (max-width: 600px) {
+      header { padding: 20px 16px; }
+      .container { padding: 16px 12px 48px; }
+      .card { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Your Life Helper</h1>
+  <p>The Road to Charlotte &mdash; Family Plan</p>
+</header>
+
+<div class="container">
+
+  <!-- ROAD TO CHARLOTTE -->
+  <div class="road-section">
+    <div class="section-label">Overall Progress</div>
+    <div class="road-title">The Road to Charlotte</div>
+    <div class="road-track">
+      <div class="road-fill" id="roadFill" style="width:0%"></div>
+      <div class="road-car" id="roadCar" style="left:4%">&#128663;</div>
+    </div>
+    <div class="road-labels">
+      <span>Tazewell, VA</span>
+      <span>Charlotte, NC</span>
+    </div>
+    <div class="road-pct" id="roadPct">0%</div>
+    <div class="road-sub" id="roadSub">Loading...</div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('finances', this)">Finances</button>
+    <button class="tab" onclick="switchTab('tasks', this)">Tasks</button>
+    <button class="tab" onclick="switchTab('daily', this)">Daily Assignments</button>
+    <button class="tab" onclick="switchTab('status', this)">Status</button>
+    <button class="tab" onclick="switchTab('email', this)">Email Log</button>
+  </div>
+
+  <!-- FINANCES -->
+  <div id="tab-finances" class="panel active">
+    <div class="summary-row">
+      <div class="summary-box">
+        <div class="lbl">Minimum Due Now</div>
+        <div class="val val-gold" id="totalMin">$0</div>
+      </div>
+      <div class="summary-box">
+        <div class="lbl">Total Debt</div>
+        <div class="val val-red" id="totalDebt">$0</div>
+      </div>
+      <div class="summary-box">
+        <div class="lbl">Savings</div>
+        <div class="val val-muted" id="savingsDisplay">$0</div>
+      </div>
+    </div>
+    <div class="alert alert-warn">Stop before spending. Ask: does this move the plan forward?</div>
+    <div class="card">
+      <div class="card-title">Bills &mdash; Pay in This Order</div>
+      <div id="billsList"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Savings Tracker</div>
+      <div class="savings-display">
+        <div class="savings-amount" id="savingsAmt">$0</div>
+        <div class="savings-goal">Goal: $500 emergency fund</div>
+      </div>
+      <div class="savings-bar">
+        <div class="savings-fill" id="savingsFill" style="width:0%"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-muted)">
+        <span>$0</span><span>$500</span>
+      </div>
+      <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap">
+        <input class="add-input" id="savingsInput" type="number" placeholder="Enter new savings amount" style="max-width:220px" />
+        <button class="btn btn-sm" onclick="updateSavings()">Update</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TASKS -->
+  <div id="tab-tasks" class="panel">
+    <div class="card">
+      <div class="card-title">Mother's House &mdash; Repairs Needed</div>
+      <div id="houseTasksList"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Father's Tasks</div>
+      <div id="fatherTasksList"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Rae &amp; Boogie &mdash; Personal Goals</div>
+      <div id="raeTasksList"></div>
+    </div>
+  </div>
+
+  <!-- DAILY ASSIGNMENTS -->
+  <div id="tab-daily" class="panel">
+    <div class="card">
+      <div class="assignment-header">
+        <div>
+          <div class="card-title" style="margin-bottom:4px">Daily Assignments</div>
+          <div class="date-label" id="todayDate"></div>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn btn-outline btn-sm" onclick="autoSuggest()">Auto-Suggest</button>
+          <button class="btn btn-sm" onclick="sendDailyEmail()">Send Email Digest</button>
+        </div>
+      </div>
+      <div class="person-assignments">
+        <div class="person-name">Rae</div>
+        <div id="raeAssignments"></div>
+        <div class="add-row">
+          <input class="add-input" id="raeNewTask" placeholder="Add a task for Rae..." />
+          <button class="btn btn-sm" onclick="addAssignment('rae')">Add</button>
+        </div>
+      </div>
+      <div class="person-assignments">
+        <div class="person-name">Boogie</div>
+        <div id="boogieAssignments"></div>
+        <div class="add-row">
+          <input class="add-input" id="boogieNewTask" placeholder="Add a task for Boogie..." />
+          <button class="btn btn-sm" onclick="addAssignment('boogie')">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATUS -->
+  <div id="tab-status" class="panel">
+    <div class="card">
+      <div class="card-title">Current Status</div>
+      <div class="person-card">
+        <div class="person-icon">M</div>
+        <div>
+          <div class="person-info-name">Mother</div>
+          <div class="person-info-note">ER Nurse &mdash; $28&ndash;$35/hr. Leading the charge on preparing the house for the move.</div>
+        </div>
+      </div>
+      <div class="person-card">
+        <div class="person-icon">R</div>
+        <div>
+          <div class="person-info-name">Rae</div>
+          <div class="person-info-note">Associates complete. Pursuing bachelor's degree and data analytics certifications. Currently $17/hr &mdash; target: analyst role at $25&ndash;35/hr.</div>
+        </div>
+      </div>
+      <div class="person-card">
+        <div class="person-icon">B</div>
+        <div>
+          <div class="person-info-name">Boogie</div>
+          <div class="person-info-note">Amazon $19/hr. Working on GED, launching liquor business, and planning Charlotte transfer.</div>
+        </div>
+      </div>
+      <div class="person-card">
+        <div class="person-icon">F</div>
+        <div>
+          <div class="person-info-name">Father</div>
+          <div class="person-info-note">Waiting on vital documents to access inheritance funds. Finding co-signer for Charlotte apartment.</div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Combined Earning Power</div>
+      <div class="bill-row">
+        <div><div class="bill-name">Boogie (Amazon)</div></div>
+        <div class="bill-amount">~$3,040/mo</div>
+      </div>
+      <div class="bill-row">
+        <div><div class="bill-name">Rae</div></div>
+        <div class="bill-amount">~$2,720/mo</div>
+      </div>
+      <div class="bill-row">
+        <div><div class="bill-name">Mother (ER Nurse)</div></div>
+        <div class="bill-amount">~$4,536/mo</div>
+      </div>
+      <div class="bill-row" style="border-bottom:none">
+        <div><div class="bill-name" style="color:var(--gold);font-size:15px">Family Total (3 earners)</div></div>
+        <div class="bill-amount" style="color:var(--gold);font-size:18px">~$10,296/mo</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EMAIL LOG -->
+  <div id="tab-email" class="panel">
+    <div class="card">
+      <div class="card-title">Incoming Email Updates</div>
+      <div style="font-size:13px;color:var(--text-muted);margin-bottom:16px;line-height:1.8;background:var(--sand);border-radius:8px;padding:14px">
+        <strong>How to update the dashboard by email:</strong><br/>
+        Reply to your daily digest from luhheed@gmail.com or raellevelenawhite@gmail.com.<br/><br/>
+        <strong>DONE:</strong> task name &nbsp;&mdash;&nbsp; marks a task complete<br/>
+        <strong>UNDO:</strong> task name &nbsp;&mdash;&nbsp; marks a task incomplete<br/>
+        <strong>PAID:</strong> Verizon $300 &nbsp;&mdash;&nbsp; logs a bill payment<br/>
+        <strong>SAVINGS:</strong> $500 &nbsp;&mdash;&nbsp; updates savings amount<br/>
+        <strong>NOTE:</strong> any message &nbsp;&mdash;&nbsp; adds to the log<br/><br/>
+        One command per line. You can also write naturally and the system will interpret it.
+      </div>
+      <div id="emailLog">
+        <div style="color:var(--text-muted);font-size:13px;font-style:italic">No updates received yet.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="last-updated" id="lastUpdated"></div>
+</div>
+
+<script>
+const DEFAULT_STATE = {
+  savings: 0,
+  bills: [
+    { id:1, name:"Verizon", note:"Phones currently off", minimum:606.35, total:1089.77, badge:"urgent", paid:0 },
+    { id:2, name:"Car Note", note:"Overdue since June 1", minimum:399.00, total:399.00, badge:"late", paid:0 },
+    { id:3, name:"Progressive Auto Insurance", note:"Keep coverage active", minimum:190.00, total:190.00, badge:"soon", paid:0 },
+    { id:4, name:"Rae's Credit Card", note:"Minimum to protect credit", minimum:100.00, total:2000.00, badge:"ongoing", paid:0 },
+    { id:5, name:"Boogie's Credit Card", note:"Small balance, clearable soon", minimum:120.00, total:300.00, badge:"ongoing", paid:0 }
+  ],
+  houseTasks: [
+    { id:"h1", text:"Paint the walls", done:false },
+    { id:"h2", text:"Fix the kitchen floor", done:false },
+    { id:"h3", text:"Fix front deck", done:false },
+    { id:"h4", text:"Clear objects from vents", done:false },
+    { id:"h5", text:"Address carpet situation", done:false },
+    { id:"h6", text:"Fix gutter", done:false },
+    { id:"h7", text:"Patch hole in roof", done:false }
+  ],
+  fatherTasks: [
+    { id:"f1", text:"Gather vital documents", done:false },
+    { id:"f2", text:"Access inheritance money", done:false },
+    { id:"f3", text:"Find co-signer for apartment", done:false }
+  ],
+  raeTasks: [
+    { id:"r1", text:"Fix financials together", who:"both", done:false },
+    { id:"r2", text:"Complete data analytics certifications", who:"rae", done:false },
+    { id:"r3", text:"Finish bachelor's degree", who:"rae", done:false },
+    { id:"r4", text:"Get GED", who:"boogie", done:false },
+    { id:"r5", text:"Launch liquor business", who:"boogie", done:false },
+    { id:"r6", text:"Transfer Amazon position to Charlotte", who:"boogie", done:false }
+  ],
+  assignments: { rae:[], boogie:[] },
+  emailLog: [],
+  lastUpdated: null
+};
+
+let state = JSON.parse(JSON.stringify(DEFAULT_STATE));
+
+function loadState() {
+  try { const s = localStorage.getItem('ylh_state'); if (s) state = JSON.parse(s); } catch(e) {}
+}
+function saveState() {
+  state.lastUpdated = new Date().toISOString();
+  try { localStorage.setItem('ylh_state', JSON.stringify(state)); } catch(e) {}
+  render();
+}
+
+function render() {
+  renderRoad(); renderBills(); renderTasks();
+  renderAssignments(); renderEmailLog(); renderSavings(); renderLastUpdated();
+}
+
+function renderRoad() {
+  const all = [...state.houseTasks, ...state.fatherTasks, ...state.raeTasks];
+  const done = all.filter(t => t.done).length;
+  const total = all.length;
+  const pct = total === 0 ? 0 : Math.round((done / total) * 100);
+  document.getElementById('roadFill').style.width = pct + '%';
+  document.getElementById('roadCar').style.left = Math.max(4, Math.min(96, pct)) + '%';
+  document.getElementById('roadPct').textContent = pct + '%';
+  document.getElementById('roadSub').textContent = done + ' of ' + total + ' tasks complete';
+}
+
+function renderBills() {
+  let html = '', totalMin = 0, totalDebt = 0;
+  state.bills.forEach(b => {
+    const remaining = Math.max(0, b.total - (b.paid || 0));
+    const minDue = Math.min(b.minimum, remaining);
+    totalMin += minDue; totalDebt += remaining;
+    const bc = b.badge==='urgent'?'badge-red':b.badge==='late'?'badge-gold':'badge-green';
+    const bl = b.badge==='urgent'?'Urgent':b.badge==='late'?'Late':b.badge==='soon'?'Due Soon':'Ongoing';
+    html += `<div class="bill-row">
+      <div>
+        <div class="bill-name">#${b.id} &mdash; ${b.name}</div>
+        <div class="bill-note">${b.note}</div>
+        <span class="badge ${bc}">${bl}</span>
+      </div>
+      <div style="text-align:right">
+        <div class="bill-amount">$${minDue.toFixed(2)}</div>
+        <div class="bill-total">Balance: $${remaining.toLocaleString('en-US',{minimumFractionDigits:2})}</div>
+      </div>
+    </div>`;
+  });
+  document.getElementById('billsList').innerHTML = html;
+  document.getElementById('totalMin').textContent = '$' + totalMin.toFixed(2);
+  document.getElementById('totalDebt').textContent = '$' + totalDebt.toLocaleString('en-US',{minimumFractionDigits:2});
+}
+
+function renderSavings() {
+  const s = state.savings || 0;
+  document.getElementById('savingsDisplay').textContent = '$' + s.toFixed(2);
+  document.getElementById('savingsAmt').textContent = '$' + s.toFixed(2);
+  document.getElementById('savingsFill').style.width = Math.min(100,(s/500)*100) + '%';
+}
+
+function renderTasks() {
+  renderList('houseTasksList', state.houseTasks, false);
+  renderList('fatherTasksList', state.fatherTasks, false);
+  renderList('raeTasksList', state.raeTasks, true);
+}
+
+function renderList(id, tasks, showWho) {
+  document.getElementById(id).innerHTML = tasks.map(t => {
+    const who = showWho && t.who ? `<span class="who-tag who-${t.who}">${t.who}</span>` : '';
+    return `<div class="check-item" onclick="toggleTask('${t.id}')">
+      <div class="check-box ${t.done?'done':''}">${t.done?'&#10003;':''}</div>
+      <div class="check-label ${t.done?'done':''}">${t.text}</div>${who}
+    </div>`;
+  }).join('');
+}
+
+function renderAssignments() {
+  document.getElementById('todayDate').textContent = new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  ['rae','boogie'].forEach(p => {
+    const el = document.getElementById(p+'Assignments');
+    const items = state.assignments[p] || [];
+    if (!items.length) { el.innerHTML = `<div style="font-size:13px;color:var(--text-muted);padding:10px 0;font-style:italic">No assignments yet. Click Auto-Suggest or add one below.</div>`; return; }
+    el.innerHTML = items.map((a,i) => `<div class="assign-row">
+      <div class="assign-check ${a.done?'done':''}" onclick="toggleAssign('${p}',${i})">${a.done?'&#10003;':''}</div>
+      <input class="assign-text ${a.done?'assign-done':''}" value="${a.text.replace(/"/g,'&quot;')}" onchange="editAssign('${p}',${i},this.value)" />
+      <button class="remove-btn" onclick="removeAssign('${p}',${i})">&#215;</button>
+    </div>`).join('');
+  });
+}
+
+function renderEmailLog() {
+  const el = document.getElementById('emailLog');
+  if (!state.emailLog || !state.emailLog.length) { el.innerHTML = '<div style="color:var(--text-muted);font-size:13px;font-style:italic">No updates received yet.</div>'; return; }
+  el.innerHTML = state.emailLog.slice().reverse().map(e => `<div class="log-entry">
+    <div class="log-time">${new Date(e.time).toLocaleString()}</div>
+    <div class="log-cmd">From: ${e.from}</div>
+    <div style="color:var(--text-mid);margin-top:3px">${e.result}</div>
+  </div>`).join('');
+}
+
+function renderLastUpdated() {
+  if (state.lastUpdated) document.getElementById('lastUpdated').textContent = 'Last updated: ' + new Date(state.lastUpdated).toLocaleString();
+}
+
+function toggleTask(id) {
+  ['houseTasks','fatherTasks','raeTasks'].forEach(k => {
+    const t = state[k].find(t => t.id===id); if (t) t.done = !t.done;
+  });
+  saveState();
+}
+
+function updateSavings() {
+  const val = parseFloat(document.getElementById('savingsInput').value);
+  if (!isNaN(val) && val >= 0) { state.savings = val; document.getElementById('savingsInput').value = ''; saveState(); }
+}
+
+function toggleAssign(p, i) { state.assignments[p][i].done = !state.assignments[p][i].done; saveState(); }
+function editAssign(p, i, v) { state.assignments[p][i].text = v; saveState(); }
+function removeAssign(p, i) { state.assignments[p].splice(i,1); saveState(); }
+
+function addAssignment(p) {
+  const inp = document.getElementById(p+'NewTask');
+  const text = inp.value.trim(); if (!text) return;
+  if (!state.assignments[p]) state.assignments[p] = [];
+  state.assignments[p].push({text, done:false}); inp.value = ''; saveState();
+}
+
+function autoSuggest() {
+  const raePending = state.raeTasks.filter(t => !t.done && (t.who==='rae'||t.who==='both'));
+  const boogiePending = state.raeTasks.filter(t => !t.done && (t.who==='boogie'||t.who==='both'));
+  const housePending = state.houseTasks.filter(t => !t.done);
+  if (!state.assignments.rae) state.assignments.rae = [];
+  if (!state.assignments.boogie) state.assignments.boogie = [];
+  if (raePending[0]) state.assignments.rae.push({text: raePending[0].text, done:false});
+  if (housePending[0]) state.assignments.rae.push({text: 'Help with: ' + housePending[0].text, done:false});
+  if (boogiePending[0]) state.assignments.boogie.push({text: boogiePending[0].text, done:false});
+  if (housePending[1]) state.assignments.boogie.push({text: 'Help with: ' + housePending[1].text, done:false});
+  saveState();
+}
+
+function sendDailyEmail() {
+  fetch('/.netlify/functions/send-digest', {method:'POST'})
+    .then(r => r.json())
+    .then(d => alert(d.ok ? 'Daily digest sent!' : 'Error: ' + (d.error||'Unknown error')))
+    .catch(() => alert('Could not reach the server. Make sure the site is deployed.'));
+}
+
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  btn.classList.add('active');
+}
+
+function pollUpdates() {
+  fetch('/.netlify/functions/get-state')
+    .then(r => r.json())
+    .then(data => {
+      if (data && data.state) {
+        const serverTime = new Date(data.state.lastUpdated||0);
+        const localTime = new Date(state.lastUpdated||0);
+        if (serverTime > localTime) { state = data.state; saveState(); }
+      }
+    }).catch(()=>{});
+}
+
+loadState(); render(); setInterval(pollUpdates, 30000);
+</script>
+</body>
+</html>
