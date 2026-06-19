@@ -40,7 +40,7 @@ exports.handler = async (event) => {
   let emailBody = '';
 try {
   const res = await fetch(`https://api.resend.com/inbound/emails/${emailId}`, {
-    method: 'POST',
+    method: 'GET',
     headers: {
       Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
       'Content-Type': 'application/json'
