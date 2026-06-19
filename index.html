@@ -43,78 +43,38 @@
       padding: 28px 32px 22px;
       border-bottom: 3px solid var(--gold);
     }
-    header h1 {
-      font-size: 26px;
-      font-weight: 800;
-      color: var(--gold-light);
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-    header p {
-      color: var(--sand-dark);
-      font-size: 13px;
-      margin-top: 4px;
-      letter-spacing: 1px;
-    }
+    header h1 { font-size: 26px; font-weight: 800; color: var(--gold-light); letter-spacing: 2px; text-transform: uppercase; }
+    header p { color: var(--sand-dark); font-size: 13px; margin-top: 4px; letter-spacing: 1px; }
 
     .container { max-width: 960px; margin: 0 auto; padding: 28px 20px 60px; }
 
     .road-section {
-      background: var(--white);
-      border: 1.5px solid var(--sand-dark);
-      border-radius: 16px;
-      padding: 24px 28px;
-      margin-bottom: 24px;
+      background: var(--white); border: 1.5px solid var(--sand-dark);
+      border-radius: 16px; padding: 24px 28px; margin-bottom: 24px;
       box-shadow: 0 2px 12px rgba(61,46,30,0.07);
     }
-    .section-label {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 10px;
-    }
+    .section-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
     .road-title { font-size: 18px; font-weight: 800; color: var(--dusk); margin-bottom: 18px; }
     .road-track {
-      position: relative;
-      height: 52px;
+      position: relative; height: 52px;
       background: linear-gradient(to right, var(--sand-mid), var(--sky));
-      border-radius: 99px;
-      border: 1.5px solid var(--sand-dark);
+      border-radius: 99px; border: 1.5px solid var(--sand-dark);
     }
     .road-fill {
-      position: absolute;
-      left: 0; top: 0; bottom: 0;
+      position: absolute; left: 0; top: 0; bottom: 0;
       background: linear-gradient(to right, var(--gold), var(--gold-light));
-      border-radius: 99px;
-      transition: width 1s ease;
-      min-width: 0;
+      border-radius: 99px; transition: width 1s ease; min-width: 0;
     }
-    .road-car {
-      position: absolute;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 26px;
-      transition: left 1s ease;
-    }
+    .road-car { position: absolute; top: 50%; transform: translate(-50%, -50%); font-size: 26px; transition: left 1s ease; }
     .road-labels { display: flex; justify-content: space-between; margin-top: 10px; font-size: 12px; color: var(--text-muted); font-weight: 600; }
     .road-pct { font-size: 22px; font-weight: 800; color: var(--gold); margin-top: 10px; }
     .road-sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
 
     .tabs { display: flex; gap: 6px; margin-bottom: 20px; flex-wrap: wrap; }
     .tab {
-      background: var(--white);
-      border: 1.5px solid var(--sand-dark);
-      border-radius: 8px;
-      padding: 9px 18px;
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--text-muted);
-      cursor: pointer;
-      font-family: inherit;
-      letter-spacing: 0.5px;
-      transition: all 0.2s;
+      background: var(--white); border: 1.5px solid var(--sand-dark); border-radius: 8px;
+      padding: 9px 18px; font-size: 13px; font-weight: 700; color: var(--text-muted);
+      cursor: pointer; font-family: inherit; letter-spacing: 0.5px; transition: all 0.2s;
     }
     .tab:hover { border-color: var(--gold); color: var(--gold); }
     .tab.active { background: var(--dusk); border-color: var(--dusk); color: var(--gold-light); }
@@ -123,22 +83,15 @@
     .panel.active { display: block; }
 
     .card {
-      background: var(--white);
-      border: 1.5px solid var(--sand-dark);
-      border-radius: 14px;
-      padding: 22px 24px;
-      margin-bottom: 16px;
+      background: var(--white); border: 1.5px solid var(--sand-dark);
+      border-radius: 14px; padding: 22px 24px; margin-bottom: 16px;
       box-shadow: 0 2px 10px rgba(61,46,30,0.06);
     }
     .card-title { font-size: 15px; font-weight: 800; color: var(--dusk); margin-bottom: 14px; }
 
     .bill-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      padding: 12px 0;
-      border-bottom: 1px solid var(--sand-mid);
-      gap: 12px;
+      display: flex; justify-content: space-between; align-items: flex-start;
+      padding: 12px 0; border-bottom: 1px solid var(--sand-mid); gap: 12px;
     }
     .bill-row:last-child { border-bottom: none; }
     .bill-name { font-weight: 700; font-size: 14px; color: var(--dusk); }
@@ -146,106 +99,56 @@
     .bill-amount { font-weight: 800; font-size: 16px; color: var(--clay-dark); text-align: right; }
     .bill-total { font-size: 11px; color: var(--text-muted); }
     .badge {
-      display: inline-block;
-      padding: 2px 9px;
-      border-radius: 5px;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-top: 4px;
+      display: inline-block; padding: 2px 9px; border-radius: 5px;
+      font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-top: 4px;
     }
     .badge-red { background: var(--red-soft); color: var(--red); }
     .badge-gold { background: var(--gold-pale); color: var(--clay-dark); }
     .badge-green { background: var(--green-soft); color: var(--green); }
 
     .summary-row { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; }
-    .summary-box {
-      flex: 1;
-      min-width: 120px;
-      background: var(--sand);
-      border: 1.5px solid var(--sand-dark);
-      border-radius: 10px;
-      padding: 14px 16px;
-    }
+    .summary-box { flex: 1; min-width: 120px; background: var(--sand); border: 1.5px solid var(--sand-dark); border-radius: 10px; padding: 14px 16px; }
     .summary-box .lbl { font-size: 11px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; }
     .summary-box .val { font-size: 22px; font-weight: 800; margin-top: 4px; }
     .val-gold { color: var(--gold); }
     .val-red { color: var(--red); }
     .val-muted { color: var(--text-muted); }
 
-    .check-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      padding: 10px 0;
-      border-bottom: 1px solid var(--sand-mid);
-      cursor: pointer;
-    }
+    .check-item { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--sand-mid); cursor: pointer; }
     .check-item:last-child { border-bottom: none; }
     .check-box {
-      width: 20px; height: 20px;
-      border-radius: 5px;
-      border: 2px solid var(--sand-dark);
-      flex-shrink: 0;
-      margin-top: 1px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s;
-      font-size: 12px;
-      font-weight: 900;
+      width: 20px; height: 20px; border-radius: 5px; border: 2px solid var(--sand-dark);
+      flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s; font-size: 12px; font-weight: 900;
     }
     .check-box.done { background: var(--green); border-color: var(--green); color: white; }
     .check-label { font-size: 14px; color: var(--text); line-height: 1.5; flex: 1; }
     .check-label.done { text-decoration: line-through; color: var(--text-muted); }
-    .who-tag {
-      font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
-      padding: 2px 8px; border-radius: 4px; flex-shrink: 0; margin-top: 2px;
-    }
+    .who-tag { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; flex-shrink: 0; margin-top: 2px; }
     .who-rae { background: var(--gold-pale); color: var(--clay-dark); }
     .who-boogie { background: var(--sky); color: #4a6980; }
     .who-both { background: var(--sand-mid); color: var(--dusk-mid); }
 
-    .assignment-header {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 16px; flex-wrap: wrap; gap: 10px;
-    }
+    .assignment-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; }
     .date-label { font-size: 13px; color: var(--text-muted); font-weight: 600; }
 
     .btn {
-      background: var(--dusk);
-      color: var(--gold-light);
-      border: none;
-      border-radius: 8px;
-      padding: 9px 18px;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-      font-family: inherit;
-      letter-spacing: 0.5px;
-      transition: background 0.2s;
+      background: var(--dusk); color: var(--gold-light); border: none; border-radius: 8px;
+      padding: 9px 18px; font-size: 13px; font-weight: 700; cursor: pointer;
+      font-family: inherit; letter-spacing: 0.5px; transition: background 0.2s;
     }
     .btn:hover { background: var(--clay-dark); }
     .btn-outline { background: transparent; color: var(--clay-dark); border: 1.5px solid var(--clay); }
     .btn-outline:hover { background: var(--gold-pale); }
     .btn-sm { padding: 6px 12px; font-size: 12px; }
+    .btn-danger { background: var(--red); color: white; }
+    .btn-danger:hover { background: #a93226; }
 
     .person-assignments { margin-bottom: 20px; }
-    .person-name {
-      font-size: 13px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;
-      color: var(--clay-dark); margin-bottom: 10px; padding-bottom: 6px;
-      border-bottom: 1.5px solid var(--sand-dark);
-    }
-    .assign-row {
-      display: flex; align-items: center; gap: 10px; padding: 8px 0;
-      border-bottom: 1px solid var(--sand-mid);
-    }
+    .person-name { font-size: 13px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--clay-dark); margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1.5px solid var(--sand-dark); }
+    .assign-row { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--sand-mid); }
     .assign-row:last-child { border-bottom: none; }
-    .assign-text {
-      flex: 1; font-size: 14px; color: var(--text);
-      background: transparent; border: none; font-family: inherit; outline: none;
-    }
+    .assign-text { flex: 1; font-size: 14px; color: var(--text); background: transparent; border: none; font-family: inherit; outline: none; }
     .assign-text:focus { background: var(--sand); border-radius: 6px; padding: 4px 8px; }
     .assign-done { text-decoration: line-through; color: var(--text-muted); }
     .assign-check {
@@ -268,19 +171,11 @@
     .savings-amount { font-size: 42px; font-weight: 800; color: var(--gold); }
     .savings-goal { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
     .savings-bar { background: var(--sand-mid); border-radius: 99px; height: 10px; margin: 14px 0 6px; }
-    .savings-fill {
-      background: linear-gradient(to right, var(--clay), var(--gold-light));
-      border-radius: 99px; height: 10px; transition: width 0.8s ease;
-    }
+    .savings-fill { background: linear-gradient(to right, var(--clay), var(--gold-light)); border-radius: 99px; height: 10px; transition: width 0.8s ease; }
 
     .person-card { display: flex; gap: 14px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid var(--sand-mid); }
     .person-card:last-child { border-bottom: none; }
-    .person-icon {
-      width: 44px; height: 44px; border-radius: 10px;
-      background: var(--gold-pale); border: 1.5px solid var(--gold);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 16px; font-weight: 800; color: var(--clay-dark); flex-shrink: 0;
-    }
+    .person-icon { width: 44px; height: 44px; border-radius: 10px; background: var(--gold-pale); border: 1.5px solid var(--gold); display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; color: var(--clay-dark); flex-shrink: 0; }
     .person-info-name { font-weight: 800; font-size: 15px; color: var(--dusk); }
     .person-info-note { font-size: 13px; color: var(--text-muted); margin-top: 3px; line-height: 1.5; }
 
@@ -294,10 +189,48 @@
 
     .last-updated { text-align: center; font-size: 11px; color: var(--text-muted); margin-top: 32px; letter-spacing: 1px; }
 
+    /* ── BILL MANAGER ── */
+    .bill-manager-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; }
+    .bill-manage-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      padding: 16px;
+      background: var(--sand);
+      border: 1.5px solid var(--sand-dark);
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+    .bill-manage-row .row-actions { grid-column: 1 / -1; display: flex; gap: 8px; justify-content: flex-end; padding-top: 6px; border-top: 1px solid var(--sand-dark); margin-top: 4px; }
+    .field-group { display: flex; flex-direction: column; gap: 4px; }
+    .field-group label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
+    .field-input {
+      border: 1.5px solid var(--sand-dark); border-radius: 7px; padding: 7px 10px;
+      font-size: 13px; font-family: inherit; background: var(--white); color: var(--text); outline: none;
+      width: 100%;
+    }
+    .field-input:focus { border-color: var(--gold); }
+    select.field-input { cursor: pointer; }
+
+    /* ADD BILL FORM */
+    .add-bill-form {
+      background: var(--gold-pale);
+      border: 1.5px solid var(--gold);
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 16px;
+    }
+    .add-bill-form .form-title { font-size: 14px; font-weight: 800; color: var(--dusk); margin-bottom: 14px; }
+    .add-bill-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .add-bill-grid .full { grid-column: 1 / -1; }
+    .form-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 14px; }
+
     @media (max-width: 600px) {
       header { padding: 20px 16px; }
       .container { padding: 16px 12px 48px; }
       .card { padding: 16px; }
+      .bill-manage-row { grid-template-columns: 1fr; }
+      .add-bill-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -329,6 +262,7 @@
   <!-- TABS -->
   <div class="tabs">
     <button class="tab active" onclick="switchTab('finances', this)">Finances</button>
+    <button class="tab" onclick="switchTab('bills', this)">Manage Bills</button>
     <button class="tab" onclick="switchTab('tasks', this)">Tasks</button>
     <button class="tab" onclick="switchTab('daily', this)">Daily Assignments</button>
     <button class="tab" onclick="switchTab('status', this)">Status</button>
@@ -371,6 +305,58 @@
       <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap">
         <input class="add-input" id="savingsInput" type="number" placeholder="Enter new savings amount" style="max-width:220px" />
         <button class="btn btn-sm" onclick="updateSavings()">Update</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MANAGE BILLS -->
+  <div id="tab-bills" class="panel">
+    <div class="card">
+      <div class="bill-manager-header">
+        <div class="card-title" style="margin-bottom:0">Bill Manager</div>
+        <button class="btn btn-sm" onclick="toggleAddBillForm()">+ Add New Bill</button>
+      </div>
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:16px">Edit any bill inline. Changes save automatically.</p>
+      <div id="billManagerList"></div>
+
+      <!-- ADD BILL FORM -->
+      <div class="add-bill-form" id="addBillForm" style="display:none">
+        <div class="form-title">Add a New Bill</div>
+        <div class="add-bill-grid">
+          <div class="field-group full">
+            <label>Bill Name</label>
+            <input class="field-input" id="nb_name" placeholder="e.g. Electric Bill" />
+          </div>
+          <div class="field-group full">
+            <label>Note / Description</label>
+            <input class="field-input" id="nb_note" placeholder="e.g. Due on the 15th" />
+          </div>
+          <div class="field-group">
+            <label>Minimum Payment ($)</label>
+            <input class="field-input" id="nb_minimum" type="number" min="0" step="0.01" placeholder="0.00" />
+          </div>
+          <div class="field-group">
+            <label>Total Balance ($)</label>
+            <input class="field-input" id="nb_total" type="number" min="0" step="0.01" placeholder="0.00" />
+          </div>
+          <div class="field-group">
+            <label>Due Date</label>
+            <input class="field-input" id="nb_due" type="date" />
+          </div>
+          <div class="field-group">
+            <label>Priority / Status</label>
+            <select class="field-input" id="nb_badge">
+              <option value="urgent">Urgent</option>
+              <option value="late">Late</option>
+              <option value="soon">Due Soon</option>
+              <option value="ongoing" selected>Ongoing</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-outline btn-sm" onclick="toggleAddBillForm()">Cancel</button>
+          <button class="btn btn-sm" onclick="addNewBill()">Save Bill</button>
+        </div>
       </div>
     </div>
   </div>
@@ -458,18 +444,9 @@
     </div>
     <div class="card">
       <div class="card-title">Combined Earning Power</div>
-      <div class="bill-row">
-        <div><div class="bill-name">Boogie (Amazon)</div></div>
-        <div class="bill-amount">~$3,040/mo</div>
-      </div>
-      <div class="bill-row">
-        <div><div class="bill-name">Rae</div></div>
-        <div class="bill-amount">~$2,720/mo</div>
-      </div>
-      <div class="bill-row">
-        <div><div class="bill-name">Mother (ER Nurse)</div></div>
-        <div class="bill-amount">~$4,536/mo</div>
-      </div>
+      <div class="bill-row"><div><div class="bill-name">Boogie (Amazon)</div></div><div class="bill-amount">~$3,040/mo</div></div>
+      <div class="bill-row"><div><div class="bill-name">Rae</div></div><div class="bill-amount">~$2,720/mo</div></div>
+      <div class="bill-row"><div><div class="bill-name">Mother (ER Nurse)</div></div><div class="bill-amount">~$4,536/mo</div></div>
       <div class="bill-row" style="border-bottom:none">
         <div><div class="bill-name" style="color:var(--gold);font-size:15px">Family Total (3 earners)</div></div>
         <div class="bill-amount" style="color:var(--gold);font-size:18px">~$10,296/mo</div>
@@ -504,11 +481,11 @@
 const DEFAULT_STATE = {
   savings: 0,
   bills: [
-    { id:1, name:"Verizon", note:"Phones currently off", minimum:606.35, total:1089.77, badge:"urgent", paid:0 },
-    { id:2, name:"Car Note", note:"Overdue since June 1", minimum:399.00, total:399.00, badge:"late", paid:0 },
-    { id:3, name:"Progressive Auto Insurance", note:"Keep coverage active", minimum:190.00, total:190.00, badge:"soon", paid:0 },
-    { id:4, name:"Rae's Credit Card", note:"Minimum to protect credit", minimum:100.00, total:2000.00, badge:"ongoing", paid:0 },
-    { id:5, name:"Boogie's Credit Card", note:"Small balance, clearable soon", minimum:120.00, total:300.00, badge:"ongoing", paid:0 }
+    { id:1, name:"Verizon", note:"Phones currently off", minimum:606.35, total:1089.77, badge:"urgent", paid:0, due:"" },
+    { id:2, name:"Car Note", note:"Overdue since June 1", minimum:399.00, total:399.00, badge:"late", paid:0, due:"2026-06-01" },
+    { id:3, name:"Progressive Auto Insurance", note:"Keep coverage active", minimum:190.00, total:190.00, badge:"soon", paid:0, due:"" },
+    { id:4, name:"Rae's Credit Card", note:"Minimum to protect credit", minimum:100.00, total:2000.00, badge:"ongoing", paid:0, due:"" },
+    { id:5, name:"Boogie's Credit Card", note:"Small balance, clearable soon", minimum:120.00, total:300.00, badge:"ongoing", paid:0, due:"" }
   ],
   houseTasks: [
     { id:"h1", text:"Paint the walls", done:false },
@@ -538,9 +515,18 @@ const DEFAULT_STATE = {
 };
 
 let state = JSON.parse(JSON.stringify(DEFAULT_STATE));
+let nextBillId = 10;
 
 function loadState() {
-  try { const s = localStorage.getItem('ylh_state'); if (s) state = JSON.parse(s); } catch(e) {}
+  try {
+    const s = localStorage.getItem('ylh_state');
+    if (s) {
+      state = JSON.parse(s);
+      // ensure due field exists on older saved bills
+      state.bills = state.bills.map(b => ({ due:'', ...b }));
+      nextBillId = Math.max(nextBillId, ...state.bills.map(b => b.id + 1));
+    }
+  } catch(e) {}
 }
 function saveState() {
   state.lastUpdated = new Date().toISOString();
@@ -549,7 +535,7 @@ function saveState() {
 }
 
 function render() {
-  renderRoad(); renderBills(); renderTasks();
+  renderRoad(); renderBills(); renderBillManager(); renderTasks();
   renderAssignments(); renderEmailLog(); renderSavings(); renderLastUpdated();
 }
 
@@ -572,10 +558,11 @@ function renderBills() {
     totalMin += minDue; totalDebt += remaining;
     const bc = b.badge==='urgent'?'badge-red':b.badge==='late'?'badge-gold':'badge-green';
     const bl = b.badge==='urgent'?'Urgent':b.badge==='late'?'Late':b.badge==='soon'?'Due Soon':'Ongoing';
+    const dueStr = b.due ? ' &mdash; Due: ' + formatDate(b.due) : '';
     html += `<div class="bill-row">
       <div>
         <div class="bill-name">#${b.id} &mdash; ${b.name}</div>
-        <div class="bill-note">${b.note}</div>
+        <div class="bill-note">${b.note}${dueStr}</div>
         <span class="badge ${bc}">${bl}</span>
       </div>
       <div style="text-align:right">
@@ -584,10 +571,114 @@ function renderBills() {
       </div>
     </div>`;
   });
-  document.getElementById('billsList').innerHTML = html;
+  document.getElementById('billsList').innerHTML = html || '<div style="color:var(--text-muted);font-size:13px;font-style:italic">No bills added yet.</div>';
   document.getElementById('totalMin').textContent = '$' + totalMin.toFixed(2);
   document.getElementById('totalDebt').textContent = '$' + totalDebt.toLocaleString('en-US',{minimumFractionDigits:2});
 }
+
+function renderBillManager() {
+  const el = document.getElementById('billManagerList');
+  if (!state.bills.length) {
+    el.innerHTML = '<div style="color:var(--text-muted);font-size:13px;font-style:italic;padding:10px 0">No bills yet. Add one below.</div>';
+    return;
+  }
+  el.innerHTML = state.bills.map((b, i) => `
+    <div class="bill-manage-row">
+      <div class="field-group">
+        <label>Bill Name</label>
+        <input class="field-input" value="${esc(b.name)}" onchange="updateBillField(${i},'name',this.value)" />
+      </div>
+      <div class="field-group">
+        <label>Note</label>
+        <input class="field-input" value="${esc(b.note)}" onchange="updateBillField(${i},'note',this.value)" />
+      </div>
+      <div class="field-group">
+        <label>Minimum Payment ($)</label>
+        <input class="field-input" type="number" min="0" step="0.01" value="${b.minimum}" onchange="updateBillField(${i},'minimum',parseFloat(this.value)||0)" />
+      </div>
+      <div class="field-group">
+        <label>Total Balance ($)</label>
+        <input class="field-input" type="number" min="0" step="0.01" value="${b.total}" onchange="updateBillField(${i},'total',parseFloat(this.value)||0)" />
+      </div>
+      <div class="field-group">
+        <label>Amount Paid ($)</label>
+        <input class="field-input" type="number" min="0" step="0.01" value="${b.paid||0}" onchange="updateBillField(${i},'paid',parseFloat(this.value)||0)" />
+      </div>
+      <div class="field-group">
+        <label>Due Date</label>
+        <input class="field-input" type="date" value="${b.due||''}" onchange="updateBillField(${i},'due',this.value)" />
+      </div>
+      <div class="field-group">
+        <label>Priority</label>
+        <select class="field-input" onchange="updateBillField(${i},'badge',this.value)">
+          <option value="urgent" ${b.badge==='urgent'?'selected':''}>Urgent</option>
+          <option value="late" ${b.badge==='late'?'selected':''}>Late</option>
+          <option value="soon" ${b.badge==='soon'?'selected':''}>Due Soon</option>
+          <option value="ongoing" ${b.badge==='ongoing'?'selected':''}>Ongoing</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Move Order</label>
+        <div style="display:flex;gap:6px;margin-top:4px">
+          <button class="btn btn-outline btn-sm" onclick="moveBill(${i},-1)" ${i===0?'disabled':''} style="flex:1">Up</button>
+          <button class="btn btn-outline btn-sm" onclick="moveBill(${i},1)" ${i===state.bills.length-1?'disabled':''} style="flex:1">Down</button>
+        </div>
+      </div>
+      <div class="row-actions">
+        <button class="btn btn-danger btn-sm" onclick="deleteBill(${i})">Delete Bill</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function updateBillField(i, field, value) {
+  state.bills[i][field] = value;
+  saveState();
+}
+
+function moveBill(i, dir) {
+  const j = i + dir;
+  if (j < 0 || j >= state.bills.length) return;
+  [state.bills[i], state.bills[j]] = [state.bills[j], state.bills[i]];
+  saveState();
+}
+
+function deleteBill(i) {
+  if (!confirm('Delete "' + state.bills[i].name + '"? This cannot be undone.')) return;
+  state.bills.splice(i, 1);
+  saveState();
+}
+
+function toggleAddBillForm() {
+  const f = document.getElementById('addBillForm');
+  f.style.display = f.style.display === 'none' ? 'block' : 'none';
+}
+
+function addNewBill() {
+  const name = document.getElementById('nb_name').value.trim();
+  if (!name) { alert('Please enter a bill name.'); return; }
+  const minimum = parseFloat(document.getElementById('nb_minimum').value) || 0;
+  const total = parseFloat(document.getElementById('nb_total').value) || minimum;
+  const note = document.getElementById('nb_note').value.trim();
+  const due = document.getElementById('nb_due').value;
+  const badge = document.getElementById('nb_badge').value;
+  state.bills.push({ id: nextBillId++, name, note, minimum, total, badge, paid: 0, due });
+  // clear form
+  ['nb_name','nb_note','nb_minimum','nb_total','nb_due'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('nb_badge').value = 'ongoing';
+  document.getElementById('addBillForm').style.display = 'none';
+  saveState();
+}
+
+function formatDate(d) {
+  if (!d) return '';
+  try {
+    const [y,m,day] = d.split('-');
+    return new Date(y, m-1, day).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+  } catch { return d; }
+}
+
+function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
 
 function renderSavings() {
   const s = state.savings || 0;
@@ -620,7 +711,7 @@ function renderAssignments() {
     if (!items.length) { el.innerHTML = `<div style="font-size:13px;color:var(--text-muted);padding:10px 0;font-style:italic">No assignments yet. Click Auto-Suggest or add one below.</div>`; return; }
     el.innerHTML = items.map((a,i) => `<div class="assign-row">
       <div class="assign-check ${a.done?'done':''}" onclick="toggleAssign('${p}',${i})">${a.done?'&#10003;':''}</div>
-      <input class="assign-text ${a.done?'assign-done':''}" value="${a.text.replace(/"/g,'&quot;')}" onchange="editAssign('${p}',${i},this.value)" />
+      <input class="assign-text ${a.done?'assign-done':''}" value="${(a.text||'').replace(/"/g,'&quot;')}" onchange="editAssign('${p}',${i},this.value)" />
       <button class="remove-btn" onclick="removeAssign('${p}',${i})">&#215;</button>
     </div>`).join('');
   });
