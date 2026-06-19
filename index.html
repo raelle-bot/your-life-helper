@@ -532,6 +532,11 @@ function saveState() {
   state.lastUpdated = new Date().toISOString();
   try { localStorage.setItem('ylh_state', JSON.stringify(state)); } catch(e) {}
   render();
+  fetch('/.netlify/functions/save-state', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(state)
+  }).catch(() => {});
 }
 
 function render() {
