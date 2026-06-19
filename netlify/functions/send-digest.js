@@ -13,7 +13,11 @@ exports.handler = async () => {
   }
 
   // Load state
-  const store = getStore('dashboard-state');
+  const store = getStore({
+  name: 'dashboard-state',
+  siteID: process.env.SITE_ID || process.env.NETLIFY_SITE_ID,
+  token: process.env.NETLIFY_TOKEN || process.env.NETLIFY_ACCESS_TOKEN
+});
   let state;
   try {
     const raw = await store.get('state');
