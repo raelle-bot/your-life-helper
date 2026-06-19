@@ -44,6 +44,9 @@ exports.handler = async (event) => {
     });
     const fullEmail = await res.json();
     emailBody = fullEmail.text || fullEmail.html || '';
+console.log('EMAIL BODY:', emailBody);
+console.log('EMAIL ID:', emailId);
+console.log('FULL EMAIL RESPONSE:', JSON.stringify(fullEmail));
     // Strip HTML tags if html only
     emailBody = emailBody.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
   } catch (err) {
@@ -51,6 +54,7 @@ exports.handler = async (event) => {
   }
 
   if (!emailBody) {
+    console.log('RESULTS:', JSON.stringify(results));
     return { statusCode: 200, body: JSON.stringify({ ok: true, message: 'Empty email body' }) };
   }
 
