@@ -2,6 +2,7 @@
 // Receives webhook from Resend, fetches full email body, parses commands, updates state
 
 const { getStore } = require('@netlify/blobs');
+const { Resend } = require('resend');
 
 const ALLOWED_SENDERS = [
   'luhheed@gmail.com',
@@ -40,19 +41,15 @@ exports.handler = async (event) => {
 
   let emailBody = '';
 try {
-  const res = await fetch(`https://api.resend.com/inbound/emails/${emailId}`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
-      'Content-Type': 'application/json'
-    }
-  });
-  const fullEmail = await res.json();
-  console.log('EMAIL ID:', emailId);
-  console.log('FULL EMAIL RESPONSE:', JSON.stringify(fullEmail));
-  emailBody = fullEmail.text || fullEmail.html || '';
-  emailBody = emailBody.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
-  console.log('EMAIL BODY:', emailBody);
+  const resend = new Resend(process.env.RESEND_API_KEY);
+const { data: fullEmail, error: fetchError } = await resend.emails.receiving.get(emailId);
+console.log('EMAIL ID:', emailId);
+console.log('FULL EMAIL RESPONSE:', JSON.stringify(fullEmail));
+console.log('FETCH ERROR:', JSON.stringify(fetchError));
+if (fetchError) throw new Error(fetchError.message);
+emailBody = fullEmail.text || fullEmail.html || '';
+emailBody = emailBody.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+console.log('EMAIL BODY:', emailBody);
 } catch (err) {
   return { statusCode: 500, body: JSON.stringify({ ok: false, error: 'Failed to fetch email body: ' + err.message }) };
 }
