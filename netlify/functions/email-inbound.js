@@ -33,6 +33,7 @@ exports.handler = async (event) => {
 
   // Fetch full email body from Resend API
   const emailId = payload.data?.email_id;
+  console.log('FULL PAYLOAD:', JSON.stringify(payload));
   if (!emailId) {
     return { statusCode: 400, body: JSON.stringify({ ok: false, error: 'No email_id in payload' }) };
   }
