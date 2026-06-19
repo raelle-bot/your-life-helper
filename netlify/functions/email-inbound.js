@@ -37,10 +37,24 @@ exports.handler = async (event) => {
     return { statusCode: 400, body: JSON.stringify({ ok: false, error: 'No email_id in payload' }) };
   }
 
-  console.log('FULL PAYLOAD DATA:', JSON.stringify(payload.data));
-let emailBody = payload.data?.text || payload.data?.html || payload.data?.body || '';
-emailBody = emailBody.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
-console.log('EMAIL BODY:', emailBody);
+  let emailBody = '';
+try {
+  const res = await fetch(`https://api.resend.com/inbound/emails/${emailId}`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+      'Content-Type': 'application/json'
+    }
+  });
+  const fullEmail = await res.json();
+  console.log('EMAIL ID:', emailId);
+  console.log('FULL EMAIL RESPONSE:', JSON.stringify(fullEmail));
+  emailBody = fullEmail.text || fullEmail.html || '';
+  emailBody = emailBody.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+  console.log('EMAIL BODY:', emailBody);
+} catch (err) {
+  return { statusCode: 500, body: JSON.stringify({ ok: false, error: 'Failed to fetch email body: ' + err.message }) };
+}
 
   if (!emailBody) {
     return { statusCode: 200, body: JSON.stringify({ ok: true, message: 'Empty email body' }) };
