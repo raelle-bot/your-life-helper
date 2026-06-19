@@ -39,31 +39,36 @@ exports.handler = async (event) => {
 
   let emailBody = '';
   try {
-    const res = await fetch(`https://api.resend.com/inbound/${emailId}`, {
-      headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}` }
+    const res = await fetch(`https://api.resend.com/emails/${emailId}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+        'Content-Type': 'application/json'
+      }
     });
     const fullEmail = await res.json();
+    console.log('EMAIL ID:', emailId);
+    console.log('FULL EMAIL RESPONSE:', JSON.stringify(fullEmail));
+
     emailBody = fullEmail.text || fullEmail.html || '';
-console.log('EMAIL BODY:', emailBody);
-console.log('EMAIL ID:', emailId);
-console.log('FULL EMAIL RESPONSE:', JSON.stringify(fullEmail));
     // Strip HTML tags if html only
     emailBody = emailBody.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+    console.log('EMAIL BODY:', emailBody);
   } catch (err) {
     return { statusCode: 500, body: JSON.stringify({ ok: false, error: 'Failed to fetch email body: ' + err.message }) };
   }
 
   if (!emailBody) {
-    console.log('RESULTS:', JSON.stringify(results));
     return { statusCode: 200, body: JSON.stringify({ ok: true, message: 'Empty email body' }) };
   }
 
   // Load current state
   const store = getStore({
-  name: 'dashboard-state',
-  siteID: process.env.SITE_ID || process.env.NETLIFY_SITE_ID,
-  token: process.env.NETLIFY_TOKEN || process.env.NETLIFY_ACCESS_TOKEN
-});
+    name: 'dashboard-state',
+    siteID: process.env.SITE_ID || process.env.NETLIFY_SITE_ID,
+    token: process.env.NETLIFY_TOKEN || process.env.NETLIFY_ACCESS_TOKEN
+  });
+
   let state;
   try {
     const raw = await store.get('state');
@@ -76,6 +81,8 @@ console.log('FULL EMAIL RESPONSE:', JSON.stringify(fullEmail));
   const lines = emailBody.split('\n').map(l => l.trim()).filter(Boolean);
   const results = [];
   let changed = false;
+
+  console.log('LINES TO PARSE:', JSON.stringify(lines));
 
   for (const line of lines) {
     const upper = line.toUpperCase();
@@ -143,7 +150,7 @@ console.log('FULL EMAIL RESPONSE:', JSON.stringify(fullEmail));
       changed = true;
     }
 
-    // Natural language fallback — try to interpret
+    // Natural language fallback
     else {
       const interpreted = interpretNatural(line, state);
       if (interpreted) {
@@ -152,6 +159,9 @@ console.log('FULL EMAIL RESPONSE:', JSON.stringify(fullEmail));
       }
     }
   }
+
+  console.log('RESULTS:', JSON.stringify(results));
+  console.log('CHANGED:', changed);
 
   if (!changed) {
     return { statusCode: 200, body: JSON.stringify({ ok: true, message: 'No commands found in reply' }) };
@@ -169,6 +179,7 @@ console.log('FULL EMAIL RESPONSE:', JSON.stringify(fullEmail));
   // Save state
   try {
     await store.set('state', JSON.stringify(state));
+    console.log('STATE SAVED SUCCESSFULLY');
   } catch (err) {
     return { statusCode: 500, body: JSON.stringify({ ok: false, error: 'Failed to save state: ' + err.message }) };
   }
@@ -184,7 +195,10 @@ console.log('FULL EMAIL RESPONSE:', JSON.stringify(fullEmail));
 function findTask(state, query) {
   const allLists = ['houseTasks', 'fatherTasks', 'raeTasks'];
   for (const key of allLists) {
-    const found = state[key].find(t => t.text.toLowerCase().includes(query) || query.includes(t.text.toLowerCase().substring(0, 8)));
+    const found = state[key].find(t =>
+      t.text.toLowerCase().includes(query) ||
+      query.includes(t.text.toLowerCase().substring(0, 8))
+    );
     if (found) return found;
   }
   return null;
@@ -193,7 +207,6 @@ function findTask(state, query) {
 function interpretNatural(line, state) {
   const lower = line.toLowerCase();
 
-  // "finished X" / "completed X" / "did X"
   const donePatterns = [/^finished (.+)/, /^completed (.+)/, /^did (.+)/, /^i finished (.+)/, /^i completed (.+)/, /^i did (.+)/];
   for (const pat of donePatterns) {
     const m = lower.match(pat);
@@ -203,7 +216,6 @@ function interpretNatural(line, state) {
     }
   }
 
-  // "paid X" / "paid off X"
   const paidMatch = lower.match(/^paid (?:off )?(.+?)\s+\$?([\d.]+)$/);
   if (paidMatch) {
     const bill = state.bills.find(b => b.name.toLowerCase().includes(paidMatch[1].trim()));
@@ -213,7 +225,6 @@ function interpretNatural(line, state) {
     }
   }
 
-  // "saved $X" / "put $X in savings"
   const savingsMatch = lower.match(/saved? \$?([\d.]+)/) || lower.match(/put \$?([\d.]+) in savings/);
   if (savingsMatch) {
     state.savings = parseFloat(savingsMatch[1]);
